@@ -24,9 +24,13 @@ class ClienteAdmin(admin.ModelAdmin):
 
 
 class VendaAdmin(admin.ModelAdmin):
-    list_display = ("id", "cliente", "data")
+    list_display = ("id", "cliente", "get_produtos", "data")
     ordering = ("-data",)
     search_fields = ("cliente__nome",)
+
+    def get_produtos(self, obj):
+        return ", ".join(p.nome for p in obj.produtos.all())
+    get_produtos.short_description = "Produtos"
 
 
 admin.site.register(Categoria, CategoriaAdmin)
