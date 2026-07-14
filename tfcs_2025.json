@@ -1,0 +1,20 @@
+[
+  {
+    "titulo": "Gestão de distribuição alimentar v2",
+    "autores": [
+      "Tiago Henrique Duarte Da Silva Jorge"
+    ],
+    "orientadores": [
+      "Luís Gomes"
+    ],
+    "licenciatura": "Licenciatura em Engenharia Informática",
+    "ano": 2025,
+    "link_pdf": "https://teses.deisi.ulusofona.pt/media/teses/Relatorio_Intercalar_DEISI2042.docx",
+    "imagem": "https://teses.deisi.ulusofona.pt/media/teses/IMG_4272.jpeg",
+    "sumario": "Ferramenta de gestão alimentar",
+    "palavras_chave": "Aplicação de transporte de mercadorias; Aplicação web. Cliente. Fatura. Fornecedor. Produtos.; BackOffice.",
+    "areas": "empresarial; gestão; saúde.",
+    "tecnologias": "Bases de Dados; Docker; MySQL; PHP.",
+    "rating": 4
+  }
+]
