@@ -2,16 +2,35 @@ from django.db import models
 
 # Create your models here.
 
-class Licenciatura(models.Model):
+class Docente(models.Model):
     nome = models.CharField(max_length=150)
-    grau = models.CharField(max_length=50)  # ex: "Licenciatura"
-    duracao_anos = models.IntegerField()
-    instituicao = models.CharField(max_length=150, default="Universidade Lusófona")
-    ects_totais = models.IntegerField()
+    email = models.EmailField(blank=True)
 
     def __str__(self):
         return self.nome
 
+
+class Licenciatura(models.Model):
+    nome = models.CharField(max_length=150)
+    grau = models.CharField(max_length=50)
+    duracao_anos = models.IntegerField()
+    instituicao = models.CharField(max_length=150, default="Universidade Lusófona")
+    ects_totais = models.IntegerField()
+    docentes = models.ManyToManyField(Docente, related_name="licenciaturas", blank=True)
+
+    def __str__(self):
+        return self.nome
+
+
+class UnidadeCurricular(models.Model):
+    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE, related_name="unidades_curriculares")
+    nome = models.CharField(max_length=150)
+    ano = models.IntegerField()
+    semestre = models.CharField(max_length=30)
+    ects = models.IntegerField()
+
+    def __str__(self):
+        return self.nome
 
 class TFC(models.Model):
     titulo = models.CharField(max_length=200)
@@ -29,3 +48,51 @@ class TFC(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+class Tecnologia(models.Model):
+    nome = models.CharField(max_length=100)
+    logo = models.URLField(blank=True)
+    site_oficial = models.URLField(blank=True)
+    nivel_interesse = models.IntegerField(help_text="1 a 5")
+    descricao = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.nome
+
+
+class Projeto(models.Model):
+    nome = models.CharField(max_length=150)
+    descricao = models.TextField()
+    tecnologias = models.ManyToManyField(Tecnologia, related_name="projetos")
+    unidade_curricular = models.ForeignKey(
+        UnidadeCurricular, on_delete=models.SET_NULL, null=True, blank=True, related_name="projetos"
+    )
+    imagem = models.URLField(blank=True)
+    video_demo = models.URLField(blank=True)
+    link_github = models.URLField(blank=True)
+
+    def __str__(self):
+        return self.nome
+
+
+class Competencia(models.Model):
+    nome = models.CharField(max_length=100)
+    categoria = models.CharField(max_length=50)  # ex: "Técnica" ou "Soft skill"
+    nivel = models.IntegerField(help_text="1 a 5")
+    projetos = models.ManyToManyField(Projeto, related_name="competencias", blank=True)
+    tecnologias = models.ManyToManyField(Tecnologia, related_name="competencias", blank=True)
+
+    def __str__(self):
+        return self.nome
+
+
+class Formacao(models.Model):
+    nome = models.CharField(max_length=150)
+    instituicao = models.CharField(max_length=150)
+    data_inicio = models.DateField()
+    data_fim = models.DateField(null=True, blank=True)
+    certificado_link = models.URLField(blank=True)
+
+    def __str__(self):
+        return self.nome
