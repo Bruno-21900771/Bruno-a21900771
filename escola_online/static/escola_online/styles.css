@@ -126,6 +126,16 @@ article > section > ul > li {
     font-weight: 500;
 }
 
+/* LINK DENTRO DO ITEM */
+article > section > ul > li a {
+    color: white;
+    text-decoration: none;
+}
+
+article > section > ul > li a:hover {
+    text-decoration: underline;
+}
+
 /* FOOTER */
 footer {
     text-align: center;
