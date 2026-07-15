@@ -6,11 +6,17 @@
     padding: 0;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
     background: #e6ebf2;
     color: #111827;
     line-height: 1.5;
+    display: flex;
+    flex-direction: column;
 }
 
 body > header {
@@ -39,14 +45,19 @@ body > header nav a:hover {
 }
 
 main {
-    max-width: 1100px;
+    max-width: 1400px;
     margin: 40px auto;
     padding: 0 20px;
+    flex: 1;
 }
 
 h2 {
     margin-bottom: 20px;
     font-size: 26px;
+}
+
+section {
+    width: 100%;
 }
 
 section > article {
@@ -57,6 +68,7 @@ section > article {
     box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     transition: all 0.25s ease;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 section > article:hover {
@@ -105,6 +117,15 @@ article > section > ul > li {
     border-radius: 999px;
     font-size: 13px;
     font-weight: 500;
+}
+
+article > section > ul > li a {
+    color: white;
+    text-decoration: none;
+}
+
+article > section > ul > li a:hover {
+    text-decoration: underline;
 }
 
 footer {

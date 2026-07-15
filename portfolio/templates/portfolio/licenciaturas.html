@@ -9,13 +9,11 @@
             <p>{{ licenciatura.grau }} · {{ licenciatura.duracao_anos }} anos · {{ licenciatura.instituicao }} · {{ licenciatura.ects_totais }} ECTS</p>
         </header>
         <section>
-            <h4>Docentes</h4>
+            <h4>Explorar</h4>
             <ul>
-                {% for docente in licenciatura.docentes.all %}
-                    <li>{{ docente.nome }}</li>
-                {% empty %}
-                    <li>Sem docentes associados</li>
-                {% endfor %}
+                <li><a href="{% url 'ucs_view' %}">Unidades Curriculares</a></li>
+                <li><a href="{% url 'docentes_view' %}">Docentes ({{ licenciatura.docentes.count }})</a></li>
+                <li><a href="{% url 'tfcs_view' %}">TFCs</a></li>
             </ul>
         </section>
     </article>

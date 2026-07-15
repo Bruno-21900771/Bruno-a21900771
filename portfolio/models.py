@@ -28,6 +28,7 @@ class UnidadeCurricular(models.Model):
     ano = models.IntegerField()
     semestre = models.CharField(max_length=30)
     ects = models.IntegerField()
+    docentes = models.ManyToManyField(Docente, related_name="unidades_curriculares", blank=True)
 
     def __str__(self):
         return self.nome

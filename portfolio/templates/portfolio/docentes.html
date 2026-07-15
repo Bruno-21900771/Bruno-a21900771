@@ -1,0 +1,14 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+<h2>Docentes</h2>
+<section>
+    {% for docente in docentes %}
+    <article>
+        <header>
+            <h3>{{ docente.nome }}</h3>
+            {% if docente.email %}<p>{{ docente.email }}</p>{% endif %}
+        </header>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

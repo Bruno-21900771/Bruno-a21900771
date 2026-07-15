@@ -6,8 +6,18 @@
     <article>
         <header>
             <h3>{{ uc.nome }}</h3>
-            <p>{{ uc.ano }}º ano · {{ uc.semestre }} · {{ uc.ects }} ECTS · {{ uc.licenciatura.nome }}</p>
+            <p>Ano {{ uc.ano }} | Semestre {{ uc.semestre }} | {{ uc.ects }} ECTS</p>
         </header>
+        <section>
+            <h4>Docentes</h4>
+            <ul>
+                {% for docente in uc.docentes.all %}
+                    <li>{{ docente.nome }}</li>
+                {% empty %}
+                    <li>Sem docente atribuído</li>
+                {% endfor %}
+            </ul>
+        </section>
     </article>
     {% endfor %}
 </section>

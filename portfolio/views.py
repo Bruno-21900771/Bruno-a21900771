@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Licenciatura, UnidadeCurricular, TFC, Projeto, Tecnologia, Competencia, Formacao
+from .models import Licenciatura, Docente, UnidadeCurricular, TFC, Projeto, Tecnologia, Competencia, Formacao
 
 
 def licenciaturas_view(request):
@@ -11,7 +11,7 @@ def licenciaturas_view(request):
 
 
 def ucs_view(request):
-    ucs = UnidadeCurricular.objects.select_related('licenciatura').all()
+    ucs = UnidadeCurricular.objects.select_related('licenciatura').prefetch_related('docentes').all()
     return render(request, 'portfolio/unidades_curriculares.html', {'ucs': ucs})
 
 
@@ -38,3 +38,7 @@ def competencias_view(request):
 def formacoes_view(request):
     formacoes = Formacao.objects.all()
     return render(request, 'portfolio/formacoes.html', {'formacoes': formacoes})
+
+def docentes_view(request):
+    docentes = Docente.objects.prefetch_related('licenciaturas').all()
+    return render(request, 'portfolio/docentes.html', {'docentes': docentes})

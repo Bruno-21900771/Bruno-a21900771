@@ -19,6 +19,7 @@ class UnidadeCurricularAdmin(admin.ModelAdmin):
     list_display = ("nome", "ano", "semestre", "ects", "licenciatura")
     list_filter = ("ano", "semestre")
     search_fields = ("nome",)
+    filter_horizontal = ("docentes",)
 
 
 class TFCAdmin(admin.ModelAdmin):
