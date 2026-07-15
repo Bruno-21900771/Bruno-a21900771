@@ -1,0 +1,18 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+<h2>TFCs</h2>
+<section>
+    {% for tfc in tfcs %}
+    <article>
+        <header>
+            <h3>{{ tfc.titulo }}</h3>
+            <p>{{ tfc.autores }} · Orientador(es): {{ tfc.orientadores }} · {{ tfc.ano }} · Rating: {{ tfc.rating }}/5</p>
+        </header>
+        <section>
+            <h4>Resumo</h4>
+            <p>{{ tfc.sumario }}</p>
+        </section>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

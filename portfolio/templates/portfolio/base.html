@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio</title>
+    <link rel="stylesheet" href="{% static 'portfolio/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Portfólio</h1>
+        <nav>
+            <a href="{% url 'licenciaturas_view' %}">Licenciatura</a>
+            <a href="{% url 'ucs_view' %}">UCs</a>
+            <a href="{% url 'tfcs_view' %}">TFCs</a>
+            <a href="{% url 'projetos_view' %}">Projetos</a>
+            <a href="{% url 'tecnologias_view' %}">Tecnologias</a>
+            <a href="{% url 'competencias_view' %}">Competências</a>
+            <a href="{% url 'formacoes_view' %}">Formações</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026</p>
+    </footer>
+</body>
+</html>
