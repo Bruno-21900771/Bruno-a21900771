@@ -1,8 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import Licenciatura, Docente, UnidadeCurricular, TFC, Projeto, Tecnologia, Competencia, Formacao
+from .forms import ProjetoForm, TecnologiaForm, CompetenciaForm, FormacaoForm
 
 # Create your views here.
 
-from .models import Licenciatura, Docente, UnidadeCurricular, TFC, Projeto, Tecnologia, Competencia, Formacao
+
+def is_gestor(user):
+    return user.groups.filter(name="gestor-portfolio").exists()
+
+
+gestor_required = user_passes_test(is_gestor, login_url="login_view")
 
 
 def licenciaturas_view(request):
@@ -39,14 +47,14 @@ def formacoes_view(request):
     formacoes = Formacao.objects.all()
     return render(request, 'portfolio/formacoes.html', {'formacoes': formacoes})
 
+
 def docentes_view(request):
     docentes = Docente.objects.prefetch_related('licenciaturas').all()
     return render(request, 'portfolio/docentes.html', {'docentes': docentes})
 
 
-from .forms import ProjetoForm, TecnologiaForm, CompetenciaForm, FormacaoForm
-
-
+@login_required
+@gestor_required
 def projeto_create_view(request):
     if request.method == 'POST':
         form = ProjetoForm(request.POST, request.FILES)
@@ -58,6 +66,8 @@ def projeto_create_view(request):
     return render(request, 'portfolio/projeto_form.html', {'form': form, 'titulo': 'Criar Projeto'})
 
 
+@login_required
+@gestor_required
 def projeto_edit_view(request, id):
     projeto = get_object_or_404(Projeto, id=id)
     if request.method == 'POST':
@@ -70,6 +80,8 @@ def projeto_edit_view(request, id):
     return render(request, 'portfolio/projeto_form.html', {'form': form, 'titulo': 'Editar Projeto'})
 
 
+@login_required
+@gestor_required
 def projeto_delete_view(request, id):
     projeto = get_object_or_404(Projeto, id=id)
     if request.method == 'POST':
@@ -78,6 +90,8 @@ def projeto_delete_view(request, id):
     return render(request, 'portfolio/projeto_confirm_delete.html', {'projeto': projeto})
 
 
+@login_required
+@gestor_required
 def tecnologia_create_view(request):
     if request.method == 'POST':
         form = TecnologiaForm(request.POST)
@@ -89,6 +103,8 @@ def tecnologia_create_view(request):
     return render(request, 'portfolio/tecnologia_form.html', {'form': form, 'titulo': 'Criar Tecnologia'})
 
 
+@login_required
+@gestor_required
 def tecnologia_edit_view(request, id):
     tecnologia = get_object_or_404(Tecnologia, id=id)
     if request.method == 'POST':
@@ -101,6 +117,8 @@ def tecnologia_edit_view(request, id):
     return render(request, 'portfolio/tecnologia_form.html', {'form': form, 'titulo': 'Editar Tecnologia'})
 
 
+@login_required
+@gestor_required
 def tecnologia_delete_view(request, id):
     tecnologia = get_object_or_404(Tecnologia, id=id)
     if request.method == 'POST':
@@ -109,6 +127,8 @@ def tecnologia_delete_view(request, id):
     return render(request, 'portfolio/tecnologia_confirm_delete.html', {'tecnologia': tecnologia})
 
 
+@login_required
+@gestor_required
 def competencia_create_view(request):
     if request.method == 'POST':
         form = CompetenciaForm(request.POST)
@@ -120,6 +140,8 @@ def competencia_create_view(request):
     return render(request, 'portfolio/competencia_form.html', {'form': form, 'titulo': 'Criar Competência'})
 
 
+@login_required
+@gestor_required
 def competencia_edit_view(request, id):
     competencia = get_object_or_404(Competencia, id=id)
     if request.method == 'POST':
@@ -132,6 +154,8 @@ def competencia_edit_view(request, id):
     return render(request, 'portfolio/competencia_form.html', {'form': form, 'titulo': 'Editar Competência'})
 
 
+@login_required
+@gestor_required
 def competencia_delete_view(request, id):
     competencia = get_object_or_404(Competencia, id=id)
     if request.method == 'POST':
@@ -140,6 +164,8 @@ def competencia_delete_view(request, id):
     return render(request, 'portfolio/competencia_confirm_delete.html', {'competencia': competencia})
 
 
+@login_required
+@gestor_required
 def formacao_create_view(request):
     if request.method == 'POST':
         form = FormacaoForm(request.POST)
@@ -151,6 +177,8 @@ def formacao_create_view(request):
     return render(request, 'portfolio/formacao_form.html', {'form': form, 'titulo': 'Criar Formação'})
 
 
+@login_required
+@gestor_required
 def formacao_edit_view(request, id):
     formacao = get_object_or_404(Formacao, id=id)
     if request.method == 'POST':
@@ -163,12 +191,15 @@ def formacao_edit_view(request, id):
     return render(request, 'portfolio/formacao_form.html', {'form': form, 'titulo': 'Editar Formação'})
 
 
+@login_required
+@gestor_required
 def formacao_delete_view(request, id):
     formacao = get_object_or_404(Formacao, id=id)
     if request.method == 'POST':
         formacao.delete()
         return redirect('formacoes_view')
     return render(request, 'portfolio/formacao_confirm_delete.html', {'formacao': formacao})
+
 
 def sobre_view(request):
     tecnologias = Tecnologia.objects.select_related('tipo').all()

@@ -2,7 +2,9 @@
 {% block content %}
 <h2>Projetos</h2>
 
+{% if is_gestor %}
 <p><a href="{% url 'projeto_create' %}">+ Novo Projeto</a></p>
+{% endif %}
 
 <section>
     {% for projeto in projetos %}
@@ -21,10 +23,13 @@
                 {% endfor %}
             </ul>
         </section>
+
+        {% if is_gestor %}
         <p>
             <a href="{% url 'projeto_edit' projeto.id %}">Editar</a> ·
             <a href="{% url 'projeto_delete' projeto.id %}">Apagar</a>
         </p>
+        {% endif %}
     </article>
     {% endfor %}
 </section>

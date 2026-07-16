@@ -1,0 +1,24 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+<h2>Login</h2>
+
+{% if erro %}
+    <p style="color:red;">{{ erro }}</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <p>
+        <label>Utilizador:</label><br>
+        <input type="text" name="username" required>
+    </p>
+    <p>
+        <label>Password:</label><br>
+        <input type="password" name="password" required>
+    </p>
+    <button type="submit">Entrar</button>
+</form>
+
+<p>Não tens conta? <a href="{% url 'registo_view' %}">Regista-te aqui</a></p>
+<p>Ou entra por <a href="{% url 'magic_link_request_view' %}">link mágico</a> (sem password)</p>
+{% endblock %}

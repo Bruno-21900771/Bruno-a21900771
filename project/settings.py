@@ -51,6 +51,10 @@ INSTALLED_APPS = [
     "festivais",
     "portfolio",
     "escola_online",
+    "markdownify.apps.MarkdownifyConfig",
+    "accounts",
+    "artigos",
+    
 ]
 
 MIDDLEWARE = [
@@ -75,6 +79,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "portfolio.context_processors.is_gestor",
             ],
         },
     },
@@ -138,3 +143,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # URL pública para aceder aos ficheiros
 MEDIA_URL = '/media/'
+
+MARKDOWNIFY = {
+    "default": {
+        "WHITELIST_TAGS": [
+            'a', 'abbr', 'acronym',
+            'strong', 'b',
+            'blockquote', 'em', 'i',
+            'ul', 'li', 'ol',
+            'p',
+            'h1', 'h2', 'h3', 'h4',
+        ],
+    },
+}
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = "noreply@portfolio.com"

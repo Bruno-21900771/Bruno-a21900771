@@ -2,7 +2,9 @@
 {% block content %}
 <h2>Competências</h2>
 
+{% if is_gestor %}
 <p><a href="{% url 'competencia_create' %}">+ Nova Competência</a></p>
+{% endif %}
 
 <section>
     {% for competencia in competencias %}
@@ -11,10 +13,12 @@
             <h3>{{ competencia.nome }}</h3>
             <p>{{ competencia.categoria }} · Nível {{ competencia.nivel }}/5</p>
         </header>
+        {% if is_gestor %}
         <p>
             <a href="{% url 'competencia_edit' competencia.id %}">Editar</a> ·
             <a href="{% url 'competencia_delete' competencia.id %}">Apagar</a>
         </p>
+        {% endif %}
     </article>
     {% endfor %}
 </section>

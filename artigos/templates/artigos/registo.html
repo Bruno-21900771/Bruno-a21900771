@@ -1,0 +1,11 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+<h2>Registo de Autor</h2>
+<p>Ao criares conta aqui, ficas automaticamente no grupo de autores e podes publicar artigos.</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Criar conta</button>
+</form>
+{% endblock %}

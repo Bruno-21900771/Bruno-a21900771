@@ -1,0 +1,64 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+<article>
+    <header>
+        <h2>{{ artigo.titulo }}</h2>
+        <p>Por {{ artigo.autor.username }} · {{ artigo.data_criacao|date:"d/m/Y H:i" }}</p>
+        {% if pode_editar %}
+            <a href="{% url 'artigo_edit_view' artigo.id %}" style="display:inline-block; margin-top:8px; background:#e5e7eb; color:#1f2937; padding:6px 14px; border-radius:20px; font-size:14px; text-decoration:none; font-weight:bold;">✏️ Editar este artigo</a>
+        {% endif %}
+    </header>
+
+    {% if artigo.fotografia %}
+        <img src="{{ artigo.fotografia.url }}" alt="{{ artigo.titulo }}" style="max-width:100%; border-radius:12px;">
+    {% endif %}
+
+    <p>{{ artigo.texto|linebreaks }}</p>
+
+    {% if artigo.link_externo %}
+    <p>
+        <a href="{{ artigo.link_externo }}" target="_blank" style="display:inline-block; background:#059669; color:white; padding:8px 16px; border-radius:20px; font-weight:bold; text-decoration:none;">
+            🔗 {{ artigo.link_externo }}
+        </a>
+    </p>
+    {% endif %}
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-start; margin-top:12px;">
+        <form method="post" action="{% url 'like_view' artigo.id %}">
+            {% csrf_token %}
+            <button type="submit">👍 Gosto ({{ artigo.likes }})</button>
+        </form>
+        <form method="post" action="{% url 'dislike_view' artigo.id %}">
+            {% csrf_token %}
+            <button type="submit">👎 Não gosto ({{ artigo.dislikes }})</button>
+        </form>
+
+        <details>
+            <summary style="cursor:pointer; display:inline-block; background:#2563eb; color:white; padding:8px 16px; border-radius:20px; font-weight:bold; list-style:none;">
+                💬 Ver comentários ({{ comentarios.count }})
+            </summary>
+
+            <div style="margin-top:16px;">
+                {% if request.user.is_authenticated %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Comentar</button>
+                </form>
+                {% else %}
+                <p><a href="{% url 'login_view' %}">Faz login</a> para comentares.</p>
+                {% endif %}
+
+                {% for comentario in comentarios %}
+                    <article>
+                        <p><strong>{{ comentario.autor.username }}</strong> · {{ comentario.data_criacao|date:"d/m/Y H:i" }}</p>
+                        <p>{{ comentario.texto }}</p>
+                    </article>
+                {% empty %}
+                    <p>Sem comentários ainda.</p>
+                {% endfor %}
+            </div>
+        </details>
+    </div>
+</article>
+{% endblock %}

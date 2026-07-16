@@ -2,7 +2,9 @@
 {% block content %}
 <h2>Formações</h2>
 
+{% if is_gestor %}
 <p><a href="{% url 'formacao_create' %}">+ Nova Formação</a></p>
+{% endif %}
 
 <section>
     {% for formacao in formacoes %}
@@ -11,10 +13,13 @@
             <h3>{{ formacao.nome }}</h3>
             <p>{{ formacao.instituicao }} · {{ formacao.data_inicio }}{% if formacao.data_fim %} a {{ formacao.data_fim }}{% endif %}</p>
         </header>
+        {% if is_gestor %}
         <p>
             <a href="{% url 'formacao_edit' formacao.id %}">Editar</a> ·
             <a href="{% url 'formacao_delete' formacao.id %}">Apagar</a>
         </p>
+        {% endif %}
+        
     </article>
     {% endfor %}
 </section>
