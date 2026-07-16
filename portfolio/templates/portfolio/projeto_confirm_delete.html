@@ -1,0 +1,15 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+<h2>Apagar Projeto</h2>
+
+<section>
+    <article>
+        <p>Tens a certeza que queres apagar o projeto "{{ projeto.nome }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Confirmar</button>
+            <a href="{% url 'projetos_view' %}">Cancelar</a>
+        </form>
+    </article>
+</section>
+{% endblock %}

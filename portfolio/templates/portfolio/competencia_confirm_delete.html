@@ -1,0 +1,15 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+<h2>Apagar Competência</h2>
+
+<section>
+    <article>
+        <p>Tens a certeza que queres apagar "{{ competencia.nome }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Confirmar</button>
+            <a href="{% url 'competencias_view' %}">Cancelar</a>
+        </form>
+    </article>
+</section>
+{% endblock %}

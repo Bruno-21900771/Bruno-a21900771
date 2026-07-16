@@ -46,6 +46,7 @@ body > header nav a:hover {
 
 main {
     max-width: 1400px;
+    width: 100%;
     margin: 40px auto;
     padding: 0 20px;
     flex: 1;
@@ -134,4 +135,50 @@ footer {
     background: #1f2937;
     color: #9ca3af;
     margin-top: 40px;
+}
+
+/* FORMULÁRIOS */
+form p {
+    margin-bottom: 16px;
+}
+
+form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #374151;
+}
+
+form input[type="text"],
+form input[type="url"],
+form input[type="email"],
+form input[type="number"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+form textarea {
+    min-height: 100px;
+}
+
+form button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #1d4ed8;
 }
