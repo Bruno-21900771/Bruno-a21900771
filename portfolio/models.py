@@ -49,14 +49,22 @@ class TFC(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+class TipoTecnologia(models.Model):
+    nome = models.CharField(max_length=50)  # Frontend, Backend, Base de Dados, Storage, Outros
+
+    def __str__(self):
+        return self.nome
 
 
 class Tecnologia(models.Model):
     nome = models.CharField(max_length=100)
+    tipo = models.ForeignKey(TipoTecnologia, on_delete=models.SET_NULL, null=True, blank=True, related_name="tecnologias")
     logo = models.URLField(blank=True)
     site_oficial = models.URLField(blank=True)
     nivel_interesse = models.IntegerField(help_text="1 a 5")
-    descricao = models.TextField(blank=True)
+    descricao = models.TextField(blank=True, help_text="O que a tecnologia faz e permite")
+    opiniao = models.TextField(blank=True, help_text="O que gostaste ou não gostaste")
 
     def __str__(self):
         return self.nome

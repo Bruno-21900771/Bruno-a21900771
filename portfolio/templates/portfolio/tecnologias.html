@@ -9,8 +9,16 @@
     <article>
         <header>
             <h3>{{ tecnologia.nome }}</h3>
-            <p>Nível de interesse: {{ tecnologia.nivel_interesse }}/5</p>
+            <p>{{ tecnologia.tipo.nome|default:"Sem tipo" }} · Nível de interesse: {{ tecnologia.nivel_interesse }}/5</p>
         </header>
+        <section>
+            <h4>Descrição</h4>
+            <p>{{ tecnologia.descricao }}</p>
+        </section>
+        <section>
+            <h4>Opinião</h4>
+            <p>{{ tecnologia.opiniao }}</p>
+        </section>
         <p>
             <a href="{% url 'tecnologia_edit' tecnologia.id %}">Editar</a> ·
             <a href="{% url 'tecnologia_delete' tecnologia.id %}">Apagar</a>

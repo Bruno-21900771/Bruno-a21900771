@@ -23,4 +23,5 @@ urlpatterns = [
     path('formacoes/nova/', views.formacao_create_view, name='formacao_create'),
     path('formacoes/<int:id>/editar/', views.formacao_edit_view, name='formacao_edit'),
     path('formacoes/<int:id>/apagar/', views.formacao_delete_view, name='formacao_delete'),
+    path('sobre/', views.sobre_view, name='sobre_view'),
 ]

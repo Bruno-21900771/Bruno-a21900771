@@ -169,3 +169,11 @@ def formacao_delete_view(request, id):
         formacao.delete()
         return redirect('formacoes_view')
     return render(request, 'portfolio/formacao_confirm_delete.html', {'formacao': formacao})
+
+def sobre_view(request):
+    tecnologias = Tecnologia.objects.select_related('tipo').all()
+    tecnologias_por_tipo = {}
+    for tecnologia in tecnologias:
+        tipo_nome = tecnologia.tipo.nome if tecnologia.tipo else "Outros"
+        tecnologias_por_tipo.setdefault(tipo_nome, []).append(tecnologia)
+    return render(request, 'portfolio/sobre.html', {'tecnologias_por_tipo': tecnologias_por_tipo})

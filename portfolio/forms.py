@@ -11,7 +11,7 @@ class ProjetoForm(forms.ModelForm):
 class TecnologiaForm(forms.ModelForm):
     class Meta:
         model = Tecnologia
-        fields = ['nome', 'logo', 'site_oficial', 'nivel_interesse', 'descricao']
+        fields = ['nome', 'tipo', 'logo', 'site_oficial', 'nivel_interesse', 'descricao', 'opiniao']
 
 
 class CompetenciaForm(forms.ModelForm):

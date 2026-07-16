@@ -1,0 +1,97 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+<h2>Sobre esta Aplicação</h2>
+
+<section>
+    <article>
+        <header>
+            <h3>1. Arquitetura MVT do Django</h3>
+        </header>
+
+        <!-- TODO: substitui pela foto do teu desenho em papel da arquitetura MVT -->
+        <img src="" alt="Desenho da arquitetura MVT" style="max-width:100%; border-radius:12px;">
+
+        <p>
+            O <strong>Model</strong> representa os dados e a lógica de acesso à base de dados (ex: a classe
+            <code>Tecnologia</code> em <code>models.py</code>). A <strong>View</strong> recebe o pedido HTTP
+            do utilizador, comunica com o Model para obter ou guardar dados, e escolhe o Template certo para
+            responder. O <strong>Template</strong> é o ficheiro HTML que define como a informação é apresentada
+            ao utilizador no browser.
+        </p>
+
+        <p>Vídeo-tutorial: criação e funcionamento da página com formulário para criar um novo Projeto.</p>
+        <!-- TODO: substitui o src pelo link de embed do teu vídeo -->
+        <iframe width="100%" height="400" src="" title="Vídeo-tutorial" frameborder="0" allowfullscreen></iframe>
+    </article>
+
+    <article>
+        <header>
+            <h3>2. Modelação</h3>
+        </header>
+
+        <!-- TODO: substitui pela foto do teu DER em papel -->
+        <img src="" alt="Diagrama Entidade-Relação" style="max-width:100%; border-radius:12px;">
+
+        <p>Modelação em 
+        <a href="https://github.com/Bruno-21900771/Bruno-a21900771/blob/main/portfolio/models.py" target="_blank">models.py</a></p>
+
+        <p><em>Opcional:</em> versão mais completa do diagrama, feita com software (ex: dbdiagram.io) ou IA generativa.</p>
+    </article>
+
+    <article>
+        <header>
+            <h3>3. Tecnologias</h3>
+        </header>
+
+        {% for tipo, lista in tecnologias_por_tipo.items %}
+            <h4>{{ tipo }}</h4>
+            <ul>
+                {% for tecnologia in lista %}
+                    <li>
+                        <strong>{{ tecnologia.nome }}</strong> —
+                        {{ tecnologia.descricao }}
+                        {% if tecnologia.opiniao %}<br><em>Opinião: {{ tecnologia.opiniao }}</em>{% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </article>
+
+    <article>
+        <header>
+            <h3>4. Estrutura das páginas</h3>
+        </header>
+
+        <!-- TODO: substitui pela foto/desenho do mapa de navegação da aplicação -->
+        <img src="" alt="Mapa de navegação da aplicação" style="max-width:100%; border-radius:12px;">
+    </article>
+
+    <article>
+        <header>
+            <h3>5. Repositório GitHub</h3>
+        </header>
+
+        <p><a href="https://github.com/Bruno-21900771/Bruno-a21900771" target="_blank">Link para o repositório GitHub</a></p>
+
+        <p>
+            Usei o Git/GitHub para controlo de versões ao longo do projeto: commits regulares a cada
+            funcionalidade concluída, o que permite reverter erros, acompanhar a evolução do trabalho, e
+            manter uma cópia de segurança do código fora da máquina local.
+        </p>
+    </article>
+
+    <article>
+        <header>
+            <h3>6. Making-Of</h3>
+        </header>
+
+        <p>Resumo dos principais desafios técnicos ao longo do desenvolvimento (detalhes completos na página Making-Of):</p>
+        <ul>
+            <li>Resolução do erro CSRF 403 no login do Django admin em GitHub Codespaces</li>
+            <li>Debug de um bug de CSS Flexbox (margin:auto a encolher o layout em vez de esticar)</li>
+            <li>Webscraping de TFCs 2025 e de docentes por Unidade Curricular no site da Lusófona</li>
+            <li>Uso de ferramentas de IA como apoio na resolução de bugs e organização de código — detalhado na página Making-Of</li>
+        </ul>
+    </article>
+</section>
+{% endblock %}
