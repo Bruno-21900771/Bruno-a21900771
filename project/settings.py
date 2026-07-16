@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "cloudinary_storage",
     "django.contrib.staticfiles",
+    "cloudinary",
     "pessoas",
     "escola",
     "ginasio",
@@ -153,6 +155,15 @@ MARKDOWNIFY = {
             'p',
             'h1', 'h2', 'h3', 'h4',
         ],
+    },
+}
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
 
