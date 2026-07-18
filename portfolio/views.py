@@ -208,3 +208,9 @@ def sobre_view(request):
         tipo_nome = tecnologia.tipo.nome if tecnologia.tipo else "Outros"
         tecnologias_por_tipo.setdefault(tipo_nome, []).append(tecnologia)
     return render(request, 'portfolio/sobre.html', {'tecnologias_por_tipo': tecnologias_por_tipo})
+
+def landing_view(request):
+    return render(request, 'portfolio/landing.html')
+
+def videotutoriais_view(request):
+    return render(request, 'portfolio/videotutoriais.html')

@@ -18,14 +18,14 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("home_view")
+            return redirect("licenciaturas_view")
         erro = "Utilizador ou password incorretos"
     return render(request, "accounts/login.html", {"erro": erro})
 
 
 def logout_view(request):
     logout(request)
-    return redirect("home_view")
+    return redirect("landing_view")
 
 
 def registo_view(request):
@@ -34,7 +34,7 @@ def registo_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("home_view")
+            return redirect("licenciaturas_view")
     else:
         form = RegistoForm()
     return render(request, "accounts/registo.html", {"form": form})
@@ -76,6 +76,6 @@ def magic_link_verify_view(request, token):
         email = signer.unsign(token, max_age=300)  # 5 minutos
         user = User.objects.get(email=email)
         login(request, user)
-        return redirect("home_view")
+        return redirect("licenciaturas_view")
     except (BadSignature, SignatureExpired, User.DoesNotExist):
         return render(request, "accounts/magic_link_invalid.html")

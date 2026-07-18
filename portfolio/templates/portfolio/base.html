@@ -10,13 +10,15 @@
 <body>
     <header>
         <h1>
-            Portfólio
+            <a href="{% url 'landing_view' %}" style="color:white; text-decoration:none;">Portfólio</a>
             {% if request.user.is_authenticated %}
                 <span style="font-size:14px; font-weight:normal; opacity:0.7;">· Olá, {{ request.user.username }}</span>
             {% endif %}
+            <span class="hamburger">&#9776;</span>
         </h1>
         <nav>
-            <a href="{% url 'home_view' %}">Licenciatura</a>
+            <a href="{% url 'landing_view' %}">Início</a>
+            <a href="{% url 'licenciaturas_view' %}">Licenciatura</a>
             <a href="{% url 'ucs_view' %}">UCs</a>
             <a href="{% url 'docentes_view' %}">Docentes</a>
             <a href="{% url 'tfcs_view' %}">TFCs</a>
@@ -26,6 +28,7 @@
             <a href="{% url 'formacoes_view' %}">Formações</a>
             <a href="{% url 'sobre_view' %}">Sobre</a>
             <a href="{% url 'artigos_view' %}">Artigos</a>
+            <a href="{% url 'videotutoriais_view' %}">Videotutoriais</a>
 
             {% if request.user.is_authenticated %}
                 <a href="{% url 'logout_view' %}">Logout</a>
@@ -43,5 +46,13 @@
     <footer>
         <p>&copy; 2026</p>
     </footer>
+
+    <script>
+    const menu = document.querySelector('nav');
+    const botao = document.querySelector('.hamburger');
+    botao.addEventListener('click', () => {
+        menu.classList.toggle('mostrar');
+    });
+    </script>
 </body>
 </html>

@@ -2,14 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
 from django.contrib.auth import login
-from .models import Artigo, Comentario
+from .models import Artigo, Comentario, Avaliacao
 from .forms import ArtigoForm, ComentarioForm
 from accounts.forms import RegistoForm
 
 # Create your views here.
 
 def is_autor(user):
-    return user.groups.filter(name="autores").exists()
+    return user.groups.filter(name="bloggers").exists()
 
 
 autor_required = user_passes_test(is_autor, login_url="login_view")
@@ -22,18 +22,20 @@ def artigos_view(request):
 
 def artigo_view(request, id):
     artigo = get_object_or_404(Artigo, id=id)
-    comentarios = artigo.comentarios.select_related("autor").order_by("-data_criacao")
+    comentarios = artigo.comentarios.order_by("-data_criacao")
 
-    if request.method == "POST" and request.user.is_authenticated:
+    if request.method == "POST":
         form = ComentarioForm(request.POST)
         if form.is_valid():
             comentario = form.save(commit=False)
             comentario.artigo = artigo
-            comentario.autor = request.user
             comentario.save()
             return redirect("artigo_view", id=artigo.id)
     else:
-        form = ComentarioForm()
+        initial = {}
+        if request.user.is_authenticated:
+            initial["autor"] = request.user.username
+        form = ComentarioForm(initial=initial)
 
     pode_editar = request.user.is_authenticated and request.user == artigo.autor
 
@@ -83,18 +85,29 @@ def like_view(request, id):
     artigo.save()
     return redirect("artigo_view", id=artigo.id)
 
+
 def dislike_view(request, id):
     artigo = get_object_or_404(Artigo, id=id)
     artigo.dislikes += 1
     artigo.save()
     return redirect("artigo_view", id=artigo.id)
 
+
+def avaliacao_view(request, id):
+    artigo = get_object_or_404(Artigo, id=id)
+    if request.method == "POST":
+        pontuacao = request.POST.get("pontuacao")
+        if pontuacao and pontuacao.isdigit() and 1 <= int(pontuacao) <= 5:
+            Avaliacao.objects.create(artigo=artigo, pontuacao=int(pontuacao))
+    return redirect("artigo_view", id=artigo.id)
+
+
 def artigos_registo_view(request):
     if request.method == "POST":
         form = RegistoForm(request.POST)
         if form.is_valid():
             user = form.save()
-            grupo, _ = Group.objects.get_or_create(name="autores")
+            grupo, _ = Group.objects.get_or_create(name="bloggers")
             user.groups.add(grupo)
             login(request, user)
             return redirect("artigos_view")

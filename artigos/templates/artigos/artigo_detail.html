@@ -23,7 +23,7 @@
     </p>
     {% endif %}
 
-    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-start; margin-top:12px;">
+     <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-start; margin-top:12px;">
         <form method="post" action="{% url 'like_view' artigo.id %}">
             {% csrf_token %}
             <button type="submit">👍 Gosto ({{ artigo.likes }})</button>
@@ -39,19 +39,15 @@
             </summary>
 
             <div style="margin-top:16px;">
-                {% if request.user.is_authenticated %}
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit">Comentar</button>
                 </form>
-                {% else %}
-                <p><a href="{% url 'login_view' %}">Faz login</a> para comentares.</p>
-                {% endif %}
 
                 {% for comentario in comentarios %}
                     <article>
-                        <p><strong>{{ comentario.autor.username }}</strong> · {{ comentario.data_criacao|date:"d/m/Y H:i" }}</p>
+                        <p><strong>{{ comentario.autor }}</strong> · {{ comentario.data_criacao|date:"d/m/Y H:i" }}</p>
                         <p>{{ comentario.texto }}</p>
                     </article>
                 {% empty %}
@@ -60,5 +56,36 @@
             </div>
         </details>
     </div>
+
+    <div style="margin-top:12px;">
+        <p>
+            Avaliação média:
+            {% if artigo.media_avaliacoes %}
+                ⭐ {{ artigo.media_avaliacoes }} / 5 ({{ artigo.avaliacoes.count }} avaliações)
+            {% else %}
+                Sem avaliações ainda
+            {% endif %}
+        </p>
+        <p style="margin-bottom:4px;">Avalia este artigo:</p>
+
+        <style>
+        .rating-stars button {
+            color: #d1d5db;
+        }
+        .rating-stars form:hover button,
+        .rating-stars form:hover ~ form button {
+            color: #facc15;
+        }
+        </style>
+
+        <div class="rating-stars" style="display:flex; flex-direction:row-reverse; gap:2px; width:fit-content;">
+            {% for i in "54321" %}
+            <form method="post" action="{% url 'avaliacao_view' artigo.id %}" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="pontuacao" value="{{ i }}">
+                <button type="submit" style="background:none; border:none; font-size:28px; cursor:pointer; padding:0;">★</button>
+            </form>
+            {% endfor %}
+        </div>
 </article>
 {% endblock %}

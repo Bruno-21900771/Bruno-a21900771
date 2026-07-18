@@ -182,3 +182,27 @@ form button {
 form button:hover {
     background: #1d4ed8;
 }
+
+.hamburger {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+    nav.mostrar {
+        display: flex;
+    }
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        font-size: 24px;
+    }
+}

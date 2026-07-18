@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruno Narciso — Portfólio</title>
+    <link rel="stylesheet" href="{% static 'portfolio/styles.css' %}">
+    <style>
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a, #0ea5e9);
+            color: white;
+        }
+        .hero-nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 24px;
+            padding: 24px 40px;
+        }
+        .hero-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .hero-nav a:hover {
+            opacity: 0.7;
+        }
+        .hero-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            max-width: 700px;
+        }
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 24px;
+        }
+        .hero-content a.cta {
+            display: inline-block;
+            background: dodgerblue;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <nav class="hero-nav">
+            <a href="{% url 'sobre_view' %}">Sobre</a>
+            <a href="{% url 'artigos_view' %}">Artigos</a>
+            <a href="{% url 'licenciaturas_view' %}">Portfólio</a>
+        </nav>
+        <div class="hero-content">
+            <h1>Bruno Alexandre</h1>
+            <p>Estudante de Engenharia Informática, apaixonado por cibersegurança e Inteligência Artificial.</p>
+            <a href="{% url 'licenciaturas_view' %}" class="cta">Ver o meu portfólio →</a>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,7 +1,9 @@
 from django.urls import path
 from . import views
+from .api import api
 
 urlpatterns = [
+    path('', views.landing_view, name='landing_view'),
     path('licenciaturas/', views.licenciaturas_view, name='licenciaturas_view'),
     path('unidades-curriculares/', views.ucs_view, name='ucs_view'),
     path('tfcs/', views.tfcs_view, name='tfcs_view'),
@@ -10,7 +12,6 @@ urlpatterns = [
     path('competencias/', views.competencias_view, name='competencias_view'),
     path('formacoes/', views.formacoes_view, name='formacoes_view'),
     path('docentes/', views.docentes_view, name='docentes_view'),
-    path('', views.licenciaturas_view, name='home_view'),
     path('projetos/novo/', views.projeto_create_view, name='projeto_create'),
     path('projetos/<int:id>/editar/', views.projeto_edit_view, name='projeto_edit'),
     path('projetos/<int:id>/apagar/', views.projeto_delete_view, name='projeto_delete'),
@@ -24,4 +25,6 @@ urlpatterns = [
     path('formacoes/<int:id>/editar/', views.formacao_edit_view, name='formacao_edit'),
     path('formacoes/<int:id>/apagar/', views.formacao_delete_view, name='formacao_delete'),
     path('sobre/', views.sobre_view, name='sobre_view'),
+    path('videotutoriais/', views.videotutoriais_view, name='videotutoriais_view'),
+    path('api/', api.urls),
 ]
