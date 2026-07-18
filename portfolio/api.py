@@ -1,4 +1,5 @@
 from ninja import NinjaAPI
+from ninja.pagination import paginate, PageNumberPagination
 from django.shortcuts import get_object_or_404
 from .models import Projeto, Tecnologia, UnidadeCurricular
 from .schemas import (
@@ -11,8 +12,14 @@ api = NinjaAPI(title="Portfolio API", version="1.0.0")
 
 # ---------- Tecnologia ----------
 @api.get("/tecnologias/", response=list[TecnologiaSchema])
-def listar_tecnologias(request):
-    return Tecnologia.objects.all()
+@paginate(PageNumberPagination, page_size=10)
+def listar_tecnologias(request, nome: str = None, tipo_id: int = None):
+    qs = Tecnologia.objects.all()
+    if nome:
+        qs = qs.filter(nome__icontains=nome)
+    if tipo_id:
+        qs = qs.filter(tipo_id=tipo_id)
+    return qs
 
 @api.post("/tecnologias/", response=TecnologiaSchema)
 def criar_tecnologia(request, payload: TecnologiaCreateSchema):
@@ -38,8 +45,14 @@ def apagar_tecnologia(request, tecnologia_id: int):
 
 # ---------- Projeto (com M2M tecnologias) ----------
 @api.get("/projetos/", response=list[ProjetoSchema])
-def listar_projetos(request):
-    return Projeto.objects.all()
+@paginate(PageNumberPagination, page_size=10)
+def listar_projetos(request, nome: str = None, unidade_curricular_id: int = None):
+    qs = Projeto.objects.all()
+    if nome:
+        qs = qs.filter(nome__icontains=nome)
+    if unidade_curricular_id:
+        qs = qs.filter(unidade_curricular_id=unidade_curricular_id)
+    return qs
 
 @api.post("/projetos/", response=ProjetoSchema)
 def criar_projeto(request, payload: ProjetoCreateSchema):
@@ -72,8 +85,14 @@ def apagar_projeto(request, projeto_id: int):
 
 # ---------- UnidadeCurricular ----------
 @api.get("/unidades-curriculares/", response=list[UnidadeCurricularSchema])
-def listar_ucs(request):
-    return UnidadeCurricular.objects.all()
+@paginate(PageNumberPagination, page_size=10)
+def listar_ucs(request, nome: str = None, ano: int = None):
+    qs = UnidadeCurricular.objects.all()
+    if nome:
+        qs = qs.filter(nome__icontains=nome)
+    if ano:
+        qs = qs.filter(ano=ano)
+    return qs
 
 @api.post("/unidades-curriculares/", response=UnidadeCurricularSchema)
 def criar_uc(request, payload: UnidadeCurricularSchema):
