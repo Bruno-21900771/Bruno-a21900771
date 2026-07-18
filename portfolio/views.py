@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Licenciatura, Docente, UnidadeCurricular, TFC, Projeto, Tecnologia, Competencia, Formacao
@@ -214,3 +215,20 @@ def landing_view(request):
 
 def videotutoriais_view(request):
     return render(request, 'portfolio/videotutoriais.html')
+
+def videotutoriais_view(request):
+    return render(request, 'portfolio/videotutoriais.html')
+
+
+def api_colega_view(request):
+    url = "https://tiagoamaro.pw.deisi.ulusofona.pt/api/unidadesCurriculares/"
+    try:
+        response = requests.get(url, verify=False, timeout=5)
+        if response.status_code == 200:
+            data = response.json()
+            dados = data.get("items", data) if isinstance(data, dict) else data
+        else:
+            dados = []
+    except requests.exceptions.RequestException:
+        dados = []
+    return render(request, 'portfolio/api_colega.html', {'dados': dados, 'erro': not dados})

@@ -1,0 +1,20 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+<h2>Unidades Curriculares do Tiago Amaro (API externa)</h2>
+
+{% if erro %}
+    <p>Não foi possível obter dados da API do Tiago. Verifica se está no ar.</p>
+{% endif %}
+
+<section>
+    {% for uc in dados %}
+        <article>
+            <h3>{{ uc.nome }} ({{ uc.sigla }})</h3>
+            <p>Ano {{ uc.ano }} · {{ uc.semestre }}º Semestre · {{ uc.ects }} ECTS</p>
+            <p>{% if uc.concluida %}Concluída{% else %}Não concluída{% endif %}</p>
+        </article>
+    {% empty %}
+        <p>Sem dados para mostrar.</p>
+    {% endfor %}
+</section>
+{% endblock %}

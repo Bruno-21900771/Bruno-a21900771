@@ -27,4 +27,5 @@ urlpatterns = [
     path('sobre/', views.sobre_view, name='sobre_view'),
     path('videotutoriais/', views.videotutoriais_view, name='videotutoriais_view'),
     path('api/', api.urls),
+    path('api-colega/', views.api_colega_view, name='api_colega_view'),
 ]
