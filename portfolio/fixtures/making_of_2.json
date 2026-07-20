@@ -1,0 +1,114 @@
+[
+  {
+    "model": "portfolio.makingof",
+    "pk": 7,
+    "fields": {
+      "entidade": "CSRF/Autenticação",
+      "decisao": "Ao configurar o Django admin para funcionar no GitHub Codespaces, o login falhava com erro 403 Forbidden - CSRF verification failed.",
+      "justificacao": "Era essencial que o admin funcionasse correctamente no ambiente de desenvolvimento Codespaces, cujo domínio muda a cada novo ambiente.",
+      "erro_encontrado": "O Django valida o Origin do pedido contra CSRF_TRUSTED_ORIGINS, que por defeito está vazia. Em localhost normal não é problema, mas o Codespaces usa um domínio dinâmico (*.app.github.dev) que o Django não reconhecia, rejeitando o login.",
+      "correcao": "Adicionei https://*.app.github.dev à lista CSRF_TRUSTED_ORIGINS no settings.py, o que resolveu o erro.",
+      "uso_ia": "Usei o ChatGPT para perceber a mecânica exacta do middleware CSRF do Django, o que ajudou a perceber a causa em vez de copiar uma solução genérica de um fórum.",
+      "foto": "",
+      "data": "2026-06-05"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 8,
+    "fields": {
+      "entidade": "TFC",
+      "decisao": "Incluí titulo, autores, orientadores, licenciatura (FK), ano, link_pdf, imagem, sumario, palavras_chave, areas, tecnologias e rating.",
+      "justificacao": "O rating permite destacar os TFCs de maior interesse, como sugerido na ficha, e os campos de palavras-chave/areas/tecnologias ajudam a categorizar e pesquisar os TFCs de forma estruturada.",
+      "erro_encontrado": "",
+      "correcao": "",
+      "uso_ia": "",
+      "foto": "",
+      "data": "2026-05-19"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 9,
+    "fields": {
+      "entidade": "Tecnologia",
+      "decisao": "Incluí nome, tipo (FK a TipoTecnologia), logo, site_oficial, nivel_interesse, descricao e opiniao.",
+      "justificacao": "O logo e site_oficial tornam a apresentação mais visual e permitem ligação directa à fonte. O nivel_interesse e a opiniao representam a minha perspectiva pessoal sobre cada tecnologia, requisito pedido na ficha.",
+      "erro_encontrado": "",
+      "correcao": "",
+      "uso_ia": "",
+      "foto": "",
+      "data": "2026-05-19"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 10,
+    "fields": {
+      "entidade": "Formacao",
+      "decisao": "Incluí nome, instituicao, data_inicio, data_fim e certificado_link.",
+      "justificacao": "As datas de início e fim permitem ordenar cronologicamente as formações, como pedido na ficha, e o certificado_link serve de prova da formação.",
+      "erro_encontrado": "",
+      "correcao": "",
+      "uso_ia": "",
+      "foto": "",
+      "data": "2026-05-21"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 11,
+    "fields": {
+      "entidade": "Docente",
+      "decisao": "Incluí nome e email, mantendo o modelo simples focado na informação de contacto essencial.",
+      "justificacao": "Reconheço que a ficha pede também uma ligação à página pessoal do docente no site da Lusófona — campo que ainda não implementei, fica identificado aqui como melhoria a acrescentar.",
+      "erro_encontrado": "",
+      "correcao": "",
+      "uso_ia": "",
+      "foto": "",
+      "data": "2026-05-19"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 12,
+    "fields": {
+      "entidade": "API RESTful (django-ninja)",
+      "decisao": "Implementei uma API RESTful com django-ninja sobre Tecnologia, Projeto e UnidadeCurricular, com CRUD completo, query parameters para filtro, paginação, e documentação automática via Swagger.",
+      "justificacao": "Escolhi estas 3 entidades porque já tinham entre si uma relação 1:N (UnidadeCurricular-Projeto) e uma N:N (Projeto-Tecnologia), cumprindo o requisito mínimo sem precisar de modelar um domínio novo do zero.",
+      "erro_encontrado": "Sem dados reais suficientes, era difícil testar os endpoints de forma realista.",
+      "correcao": "Criei um management command para popular a base de dados com dados de teste.",
+      "uso_ia": "Usei IA para gerar o esqueleto inicial dos schemas e endpoints CRUD do django-ninja, e para resolver dúvidas sobre a paginação nativa da biblioteca.",
+      "foto": "",
+      "data": "2026-07-19"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 13,
+    "fields": {
+      "entidade": "CRUD e Django",
+      "decisao": "Construí páginas de Criar/Editar/Apagar para Projeto, Tecnologia, Competencia e Formacao, protegidas por autenticação e permissão de grupo (gestor-portfolio).",
+      "justificacao": "O Django facilita bastante este tipo de operação com o sistema de Forms, reduzindo muito código repetitivo comparado a escrever tudo à mão em HTML puro.",
+      "erro_encontrado": "",
+      "correcao": "",
+      "uso_ia": "A IA ajudou-me a estruturar rapidamente o padrão repetitivo de views CRUD e a corrigir erros de permissões.",
+      "foto": "",
+      "data": "2026-06-01"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 14,
+    "fields": {
+      "entidade": "Pipeline CI/CD",
+      "decisao": "A arquitectura do sistema tem 7 componentes: Backend (Docker com Django + Static Files), Neon (PostgreSQL), Cloudinary (media), Codespaces (dev), GitHub Repository, GitHub Actions e Servidor em Produção.",
+      "justificacao": "O fluxo é: desenvolvo e testo no Codespaces, faço commit e push para o GitHub Repository, o que despoleta o GitHub Actions a correr testes e build, e por fim faz deploy para o Servidor em Produção, que corre a mesma imagem Docker ligada ao Neon e Cloudinary.",
+      "erro_encontrado": "",
+      "correcao": "",
+      "uso_ia": "Usei IA para perceber melhor o funcionamento geral de pipelines CI/CD e para estruturar o desenho da arquitectura.",
+      "foto": "",
+      "data": "2026-07-19"
+    }
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "model": "portfolio.makingof",
+    "pk": 1,
+    "fields": {
+      "entidade": "CSS/Flexbox",
+      "decisao": "Ao construir o layout com Flexbox, usei margin: auto num elemento filho à espera que o browser distribuísse o espaço e esticasse o elemento a ocupar mais área.",
+      "justificacao": "Queria que o elemento crescesse para preencher o espaço disponível no layout.",
+      "erro_encontrado": "O margin: auto não estica o elemento — em Flexbox absorve o espaço livre à volta dele, encolhendo-o ao tamanho mínimo do conteúdo em vez de o esticar, o oposto do que eu queria.",
+      "correcao": "Troquei o margin: auto por um valor fixo, o que resolveu o encolhimento indesejado do layout.",
+      "uso_ia": "Usei o ChatGPT como apoio para perceber e corrigir problemas como este ao longo do desenvolvimento — ajudou a diagnosticar o porquê do comportamento inesperado do CSS, mas a correcção final foi minha.",
+      "foto": "",
+      "data": "2026-06-10"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 2,
+    "fields": {
+      "entidade": "TFC / Docente",
+      "decisao": "Usei a biblioteca BeautifulSoup para fazer scraping dos TFCs de 2025 e dos docentes por Unidade Curricular directamente do site da Lusófona, em vez de inserir os dados manualmente.",
+      "justificacao": "Automatizar a recolha poupa tempo e reduz erros de transcrição manual, além de manter os dados mais próximos da fonte oficial.",
+      "erro_encontrado": "A maior dificuldade não foi o código do scraper, mas perceber como os dados estavam organizados no HTML da página — os nomes e a estrutura não seguiam um padrão óbvio à primeira vista.",
+      "correcao": "Inspecionei bem o HTML da página até encontrar os selectors certos para extrair a informação de forma fiável.",
+      "uso_ia": "Usei IA para acelerar a escrita do código de parsing do BeautifulSoup depois de eu já ter identificado manualmente a estrutura do HTML a extrair.",
+      "foto": "",
+      "data": "2026-06-15"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 3,
+    "fields": {
+      "entidade": "TipoTecnologia",
+      "decisao": "Criei uma entidade separada TipoTecnologia, ligada a Tecnologia por ForeignKey, em vez de guardar o tipo como campo de texto livre.",
+      "justificacao": "Fica mais fácil e organizado perceber com que tipo/categoria cada tecnologia se relaciona (Frontend, Backend, Base de Dados, Storage, Outros). Evita inconsistências de escrita e permite queries e agrupamentos mais robustos, como uso na página Sobre para agrupar tecnologias por tipo. Esta é a entidade adicional não descrita na ficha original, conforme pedido no requisito adicional.",
+      "erro_encontrado": "",
+      "correcao": "",
+      "uso_ia": "",
+      "foto": "",
+      "data": "2026-05-20"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 4,
+    "fields": {
+      "entidade": "Licenciatura",
+      "decisao": "Incluí nome, grau, duração em anos, instituição e ECTS totais, mais relação M2M com Docente.",
+      "justificacao": "A ficha sugere inspirar-me nos sites DEISI/Lusófona para identificar atributos, mas optei por manter só os campos essenciais em vez de replicar toda a informação do site — evita sobrecarregar o modelo com dados que não uso na aplicação.",
+      "erro_encontrado": "",
+      "correcao": "",
+      "uso_ia": "",
+      "foto": "",
+      "data": "2026-05-18"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 5,
+    "fields": {
+      "entidade": "Projeto",
+      "decisao": "Incluí nome, descrição, tecnologias usadas (M2M), unidade curricular onde foi feito (FK), imagem, vídeo de demonstração e link para o GitHub — 7 atributos, acima do mínimo de 5 pedido.",
+      "justificacao": "O link_github é importante para entrevistas de emprego, como a própria ficha refere. A relação M2M com Tecnologia mostra que competências técnicas apliquei em cada projeto, e a FK com UnidadeCurricular contextualiza em que cadeira foi feito.",
+      "erro_encontrado": "",
+      "correcao": "",
+      "uso_ia": "",
+      "foto": "",
+      "data": "2026-05-22"
+    }
+  },
+  {
+    "model": "portfolio.makingof",
+    "pk": 6,
+    "fields": {
+      "entidade": "Competencia",
+      "decisao": "Relacionei Competencia com Projeto e Tecnologia, ambas M2M.",
+      "justificacao": "Uma competência normalmente resulta da prática em vários projetos e do uso de várias tecnologias — ligar às duas permite mostrar de onde vem cada competência. Não relacionei com Formacao porque as minhas formações complementares não estão directamente ligadas a competências técnicas específicas neste momento, mas seria uma relação sensata a adicionar no futuro.",
+      "erro_encontrado": "",
+      "correcao": "",
+      "uso_ia": "",
+      "foto": "",
+      "data": "2026-05-25"
+    }
+  }
+]

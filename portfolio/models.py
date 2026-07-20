@@ -105,3 +105,16 @@ class Formacao(models.Model):
 
     def __str__(self):
         return self.nome
+    
+class MakingOf(models.Model):
+    entidade = models.CharField(max_length=100, help_text="Ex: Projeto, Tecnologia, MakingOf")
+    decisao = models.TextField(help_text="Decisão de modelação tomada")
+    justificacao = models.TextField()
+    erro_encontrado = models.TextField(blank=True)
+    correcao = models.TextField(blank=True)
+    uso_ia = models.TextField(blank=True, help_text="Como a IA contribuiu (ou não)")
+    foto = models.URLField(blank=True, help_text="Foto do caderno/DER/esquema, ex via Cloudinary")
+    data = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.entidade} — {self.decisao[:50]}"

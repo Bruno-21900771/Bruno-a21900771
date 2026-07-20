@@ -8,12 +8,11 @@
             <h3>1. Arquitetura MVT do Django</h3>
         </header>
 
-        <!-- TODO: substitui pela foto do teu desenho em papel da arquitetura MVT -->
-        <img src="" alt="Desenho da arquitetura MVT" style="max-width:100%; border-radius:12px;">
+        <img src="https://res.cloudinary.com/m53vwlvc/image/upload/v1784566923/Nota_20_07_2026_erkzrs.jpg" alt="Desenho da arquitetura MVT" style="max-width:500px; width:100%; border-radius:12px;">
 
         <p>
             O <strong>Model</strong> representa os dados e a lógica de acesso à base de dados (ex: a classe
-            <code>Tecnologia</code> em <code>models.py</code>). A <strong>View</strong> recebe o pedido HTTP
+            <code>Projeto</code> em <code>models.py</code>). A <strong>View</strong> recebe o pedido HTTP
             do utilizador, comunica com o Model para obter ou guardar dados, e escolhe o Template certo para
             responder. O <strong>Template</strong> é o ficheiro HTML que define como a informação é apresentada
             ao utilizador no browser.
@@ -29,13 +28,13 @@
             <h3>2. Modelação</h3>
         </header>
 
-        <!-- TODO: substitui pela foto do teu DER em papel -->
-        <img src="" alt="Diagrama Entidade-Relação" style="max-width:100%; border-radius:12px;">
+        <img src="https://res.cloudinary.com/m53vwlvc/image/upload/v1784566924/DER_jf77xn.jpg" alt="Diagrama Entidade-Relação" style="max-width:500px; width:100%; border-radius:12px;">
 
         <p>Modelação em 
         <a href="https://github.com/Bruno-21900771/Bruno-a21900771/blob/main/portfolio/models.py" target="_blank">models.py</a></p>
 
-        <p><em>Opcional:</em> versão mais completa do diagrama, feita com software (ex: dbdiagram.io) ou IA generativa.</p>
+        <p><em>Versão mais completa (dbdiagram.io):</em></p>
+        <img src="https://res.cloudinary.com/m53vwlvc/image/upload/v1784568191/Untitled_1_y0ow5v.png" alt="DER completo gerado por software" style="max-width:600px; width:100%; border-radius:12px;">
     </article>
 
     <article>
@@ -62,8 +61,7 @@
             <h3>4. Estrutura das páginas</h3>
         </header>
 
-        <!-- TODO: substitui pela foto/desenho do mapa de navegação da aplicação -->
-        <img src="" alt="Mapa de navegação da aplicação" style="max-width:100%; border-radius:12px;">
+        <img src="https://res.cloudinary.com/m53vwlvc/image/upload/v1784566923/Estrutura_das_Pa%CC%81ginas_ltqfiu.jpg" alt="Mapa de navegação da aplicação" style="max-width:500px; width:100%; border-radius:12px;">
     </article>
 
     <article>
@@ -85,7 +83,7 @@
             <h3>6. Making-Of</h3>
         </header>
 
-        <p>Resumo dos principais desafios técnicos ao longo do desenvolvimento (detalhes completos na página Making-Of):</p>
+        <p>Resumo dos principais desafios técnicos ao longo do desenvolvimento (<a href="{% url 'making_of_view' %}">detalhes completos na página Making-Of</a>):</p>
         <ul>
             <li>Resolução do erro CSRF 403 no login do Django admin em GitHub Codespaces</li>
             <li>Debug de um bug de CSS Flexbox (margin:auto a encolher o layout em vez de esticar)</li>

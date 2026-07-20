@@ -1,0 +1,53 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+<h2>Making-Of</h2>
+
+<section>
+    <article>
+        <h3>Arquitetura completa + Pipeline CI/CD</h3>
+        <img src="https://res.cloudinary.com/m53vwlvc/image/upload/v1784566923/Arquitetura_Pipeline_CI_CD_smyvtl.jpg" alt="Arquitetura e CI/CD" style="max-width:600px; width:100%; border-radius:12px;">
+    </article>
+
+    <article>
+        <h3>DER da API RESTful</h3>
+        <img src="https://res.cloudinary.com/m53vwlvc/image/upload/v1784566924/DER_jf77xn.jpg" alt="DER da API RESTful" style="max-width:600px; width:100%; border-radius:12px;">
+        <p>Entidades: UnidadeCurricular, Projeto, Tecnologia. Relação 1:N entre UnidadeCurricular e Projeto, relação N:N entre Projeto e Tecnologia.</p>
+    </article>
+
+    <article>
+        <h3>Vídeo-tutorial: criação da página de Projeto</h3>
+        <!-- TODO: cola o link de embed quando gravares -->
+        <iframe width="100%" height="400" src="" title="Vídeo-tutorial" frameborder="0" allowfullscreen></iframe>
+    </article>
+
+    <h3>Diário de bordo</h3>
+    {% for entrada in entradas %}
+        <article>
+            <header><h4>{{ entrada.entidade }} — {{ entrada.data }}</h4></header>
+            <p>{{ entrada.decisao }}</p>
+
+            {% if entrada.erro_encontrado %}
+            <p style="color:#e11d48; font-weight:600;">🐛 Erro encontrado</p>
+            <p>{{ entrada.erro_encontrado }}</p>
+            {% endif %}
+
+            {% if entrada.correcao %}
+            <p style="color:#059669; font-weight:600;">✅ Correção</p>
+            <p>{{ entrada.correcao }}</p>
+            {% endif %}
+
+            <p style="color:#d97706; font-weight:600;">💡 Justificação</p>
+            <p>{{ entrada.justificacao }}</p>
+
+            {% if entrada.uso_ia %}
+            <p style="color:#7c3aed; font-weight:600;">🤖 Uso de IA</p>
+            <p>{{ entrada.uso_ia }}</p>
+            {% endif %}
+
+            {% if entrada.foto %}<img src="{{ entrada.foto }}" alt="Foto" style="max-width:500px; width:100%; border-radius:12px;">{% endif %}
+        </article>
+    {% empty %}
+        <p>Ainda sem entradas — adiciona via admin.</p>
+    {% endfor %}
+</section>
+{% endblock %}

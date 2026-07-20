@@ -1,11 +1,11 @@
 import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Licenciatura, Docente, UnidadeCurricular, TFC, Projeto, Tecnologia, Competencia, Formacao
+from .models import Licenciatura, Docente, UnidadeCurricular, TFC, Projeto, Tecnologia, Competencia, Formacao, MakingOf
 from .forms import ProjetoForm, TecnologiaForm, CompetenciaForm, FormacaoForm
 
-# Create your views here.
 
+# ---------- Helpers ----------
 
 def is_gestor(user):
     return user.groups.filter(name="gestor-portfolio").exists()
@@ -13,6 +13,8 @@ def is_gestor(user):
 
 gestor_required = user_passes_test(is_gestor, login_url="login_view")
 
+
+# ---------- Listagens ----------
 
 def licenciaturas_view(request):
     licenciaturas = Licenciatura.objects.prefetch_related('docentes').all()
@@ -54,6 +56,8 @@ def docentes_view(request):
     return render(request, 'portfolio/docentes.html', {'docentes': docentes})
 
 
+# ---------- CRUD: Projeto ----------
+
 @login_required
 @gestor_required
 def projeto_create_view(request):
@@ -90,6 +94,8 @@ def projeto_delete_view(request, id):
         return redirect('projetos_view')
     return render(request, 'portfolio/projeto_confirm_delete.html', {'projeto': projeto})
 
+
+# ---------- CRUD: Tecnologia ----------
 
 @login_required
 @gestor_required
@@ -128,6 +134,8 @@ def tecnologia_delete_view(request, id):
     return render(request, 'portfolio/tecnologia_confirm_delete.html', {'tecnologia': tecnologia})
 
 
+# ---------- CRUD: Competência ----------
+
 @login_required
 @gestor_required
 def competencia_create_view(request):
@@ -164,6 +172,8 @@ def competencia_delete_view(request, id):
         return redirect('competencias_view')
     return render(request, 'portfolio/competencia_confirm_delete.html', {'competencia': competencia})
 
+
+# ---------- CRUD: Formação ----------
 
 @login_required
 @gestor_required
@@ -202,6 +212,12 @@ def formacao_delete_view(request, id):
     return render(request, 'portfolio/formacao_confirm_delete.html', {'formacao': formacao})
 
 
+# ---------- Páginas standalone ----------
+
+def landing_view(request):
+    return render(request, 'portfolio/landing.html')
+
+
 def sobre_view(request):
     tecnologias = Tecnologia.objects.select_related('tipo').all()
     tecnologias_por_tipo = {}
@@ -210,14 +226,14 @@ def sobre_view(request):
         tecnologias_por_tipo.setdefault(tipo_nome, []).append(tecnologia)
     return render(request, 'portfolio/sobre.html', {'tecnologias_por_tipo': tecnologias_por_tipo})
 
-def landing_view(request):
-    return render(request, 'portfolio/landing.html')
 
 def videotutoriais_view(request):
     return render(request, 'portfolio/videotutoriais.html')
 
-def videotutoriais_view(request):
-    return render(request, 'portfolio/videotutoriais.html')
+
+def making_of_view(request):
+    entradas = MakingOf.objects.all().order_by('data')
+    return render(request, 'portfolio/making_of.html', {'entradas': entradas})
 
 
 def api_colega_view(request):
