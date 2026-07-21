@@ -25,10 +25,10 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-04=ff^i5vsq-mz!fomz1vr7rg$czqlu!5ol42&l49$*ja64*so"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=True)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -36,6 +36,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.app.github.dev",
     "https://localhost:8000",
     "http://localhost:8000",
+    "https://*.pw.deisi.ulusofona.pt",
 ]
 
 
