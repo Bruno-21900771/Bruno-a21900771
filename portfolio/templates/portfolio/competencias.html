@@ -6,15 +6,34 @@
 <p><a href="{% url 'competencia_create' %}">+ Nova Competência</a></p>
 {% endif %}
 
-<section>
+<section class="competencias-grid">
     {% for competencia in competencias %}
-    <article>
+    <article class="competencia-card">
         <header>
             <h3>{{ competencia.nome }}</h3>
-            <p>{{ competencia.categoria }} · Nível {{ competencia.nivel }}/5</p>
+            <p class="competencia-meta">{{ competencia.categoria }} · Nível {{ competencia.nivel }}/5</p>
         </header>
+
+        <p class="badge-label">Tecnologias</p>
+        <div class="badge-group">
+            {% for tec in competencia.tecnologias.all %}
+                <span class="badge">{{ tec.nome }}</span>
+            {% empty %}
+                <span class="badge badge-muted">Sem tecnologias</span>
+            {% endfor %}
+        </div>
+
+        <p class="badge-label">Projetos</p>
+        <div class="badge-group">
+            {% for projeto in competencia.projetos.all %}
+                <span class="badge badge-projeto">{{ projeto.nome }}</span>
+            {% empty %}
+                <span class="badge badge-muted">Sem projetos</span>
+            {% endfor %}
+        </div>
+
         {% if is_gestor %}
-        <p>
+        <p class="competencia-actions">
             <a href="{% url 'competencia_edit' competencia.id %}">Editar</a> ·
             <a href="{% url 'competencia_delete' competencia.id %}">Apagar</a>
         </p>

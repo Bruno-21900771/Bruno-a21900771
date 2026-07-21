@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
 from django.contrib.auth import login
+from django.urls import reverse
 from .models import Artigo, Comentario, Avaliacao
 from .forms import ArtigoForm, ComentarioForm
 from accounts.forms import RegistoForm
@@ -30,7 +31,7 @@ def artigo_view(request, id):
             comentario = form.save(commit=False)
             comentario.artigo = artigo
             comentario.save()
-            return redirect("artigo_view", id=artigo.id)
+            return redirect(f"{reverse('artigo_view', args=[artigo.id])}#comentarios-{artigo.id}")
     else:
         initial = {}
         if request.user.is_authenticated:
@@ -99,7 +100,7 @@ def avaliacao_view(request, id):
         pontuacao = request.POST.get("pontuacao")
         if pontuacao and pontuacao.isdigit() and 1 <= int(pontuacao) <= 5:
             Avaliacao.objects.create(artigo=artigo, pontuacao=int(pontuacao))
-    return redirect("artigo_view", id=artigo.id)
+    return redirect(f"{reverse('artigo_view', args=[artigo.id])}#avaliar-{artigo.id}")
 
 
 def artigos_registo_view(request):

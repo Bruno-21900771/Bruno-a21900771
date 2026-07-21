@@ -12,3 +12,14 @@ class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
         fields = ["autor", "texto"]
+        widgets = {
+            "autor": forms.TextInput(attrs={
+                "placeholder": "O teu nome",
+                "aria-label": "Nome",
+            }),
+            "texto": forms.Textarea(attrs={
+                "placeholder": "Escreve um comentário...",
+                "rows": 2,
+                "aria-label": "Comentário",
+            }),
+        }

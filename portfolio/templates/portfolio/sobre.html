@@ -18,9 +18,9 @@
             ao utilizador no browser.
         </p>
 
-        <p>Vídeo-tutorial: criação e funcionamento da página com formulário para criar um novo Projeto.</p>
-        <!-- TODO: substitui o src pelo link de embed do teu vídeo -->
-        <iframe width="100%" height="400" src="" title="Vídeo-tutorial" frameborder="0" allowfullscreen></iframe>
+        <a href="{% url 'videotutoriais_view' %}#videotutorial-1" class="artigos-cta">
+            ▶ Ver vídeo-tutorial nos Videotutoriais
+        </a>
     </article>
 
     <article>
@@ -43,16 +43,26 @@
         </header>
 
         {% for tipo, lista in tecnologias_por_tipo.items %}
-            <h4>{{ tipo }}</h4>
-            <ul>
+            <p class="badge-label">{{ tipo }}</p>
+            <div class="tecnologias-grid">
                 {% for tecnologia in lista %}
-                    <li>
-                        <strong>{{ tecnologia.nome }}</strong> —
-                        {{ tecnologia.descricao }}
-                        {% if tecnologia.opiniao %}<br><em>Opinião: {{ tecnologia.opiniao }}</em>{% endif %}
-                    </li>
+                    <div class="tecnologia-card">
+                        <div class="tecnologia-card-header">
+                            <h5>{{ tecnologia.nome }}</h5>
+                            <span class="tecnologia-nivel" title="Nível de interesse: {{ tecnologia.nivel_interesse }}/5">
+                                {% for i in "12345" %}
+                                    <span class="{% if forloop.counter <= tecnologia.nivel_interesse %}nivel-cheio{% else %}nivel-vazio{% endif %}">★</span>
+                                {% endfor %}
+                            </span>
+                        </div>
+                        {% if tecnologia.descricao %}<p>{{ tecnologia.descricao }}</p>{% endif %}
+                        {% if tecnologia.opiniao %}<p class="tecnologia-opiniao">"{{ tecnologia.opiniao }}"</p>{% endif %}
+                        {% if tecnologia.site_oficial %}
+                            <a href="{{ tecnologia.site_oficial }}" target="_blank" class="tecnologia-link">Site oficial →</a>
+                        {% endif %}
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         {% endfor %}
     </article>
 

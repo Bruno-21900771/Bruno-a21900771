@@ -6,24 +6,31 @@
 <p><a href="{% url 'tecnologia_create' %}">+ Nova Tecnologia</a></p>
 {% endif %}
 
-<section>
+<section class="competencias-grid">
     {% for tecnologia in tecnologias %}
-    <article>
+    <article class="competencia-card">
         <header>
             <h3>{{ tecnologia.nome }}</h3>
-            <p>{{ tecnologia.tipo.nome|default:"Sem tipo" }} · Nível de interesse: {{ tecnologia.nivel_interesse }}/5</p>
+            <p class="competencia-meta">{{ tecnologia.tipo.nome|default:"Sem tipo" }} · Nível de interesse: {{ tecnologia.nivel_interesse }}/5</p>
         </header>
-        <section>
-            <h4>Descrição</h4>
-            <p>{{ tecnologia.descricao }}</p>
-        </section>
-        <section>
-            <h4>Opinião</h4>
-            <p>{{ tecnologia.opiniao }}</p>
-        </section>
+
+        <p class="badge-label">Descrição</p>
+        <p>{{ tecnologia.descricao }}</p>
+
+        <p class="badge-label">Opinião</p>
+        <p>{{ tecnologia.opiniao }}</p>
+
+        <p class="badge-label">Usado em</p>
+        <div class="badge-group">
+            {% for projeto in tecnologia.projetos.all %}
+                <span class="badge">{{ projeto.nome }}</span>
+            {% empty %}
+                <span class="badge badge-muted">Ainda não usada em projetos</span>
+            {% endfor %}
+        </div>
 
         {% if is_gestor %}
-        <p>
+        <p class="competencia-actions">
             <a href="{% url 'tecnologia_edit' tecnologia.id %}">Editar</a> ·
             <a href="{% url 'tecnologia_delete' tecnologia.id %}">Apagar</a>
         </p>

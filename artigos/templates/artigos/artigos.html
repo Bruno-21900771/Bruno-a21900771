@@ -3,9 +3,9 @@
 <h2>Artigos</h2>
 
 {% if is_autor %}
-<p><a href="{% url 'artigo_create_view' %}">+ Novo Artigo</a></p>
+<a href="{% url 'artigo_create_view' %}" class="artigos-cta">+ Novo Artigo</a>
 {% else %}
-<p><a href="{% url 'artigos_registo_view' %}">Quero publicar artigos — regista-te aqui</a></p>
+<a href="{% url 'artigos_registo_view' %}" class="artigos-cta">Quero publicar artigos — regista-te aqui</a>
 {% endif %}
 
 <section>
@@ -16,10 +16,13 @@
             <p>Por {{ artigo.autor.username }} · {{ artigo.data_criacao|date:"d/m/Y" }}</p>
         </header>
         {% if artigo.fotografia %}
-            <img src="{{ artigo.fotografia.url }}" alt="{{ artigo.titulo }}" style="max-width:100%; border-radius:12px;">
+            <img src="{{ artigo.fotografia.url }}" alt="{{ artigo.titulo }}" class="artigo-thumb">
         {% endif %}
-        <p>{{ artigo.texto|truncatewords:30 }}</p>
-        <p>👍 {{ artigo.likes }} likes</p>
+        <p class="artigo-texto">{{ artigo.texto|truncatewords:30 }}</p>
+        <span class="artigo-likes-badge">
+            <svg viewBox="0 0 24 24"><path d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M6.633 10.5H5.904m0 0H4.5A2.25 2.25 0 002.25 12.75v6.75A2.25 2.25 0 004.5 21.75h1.404c.607 0 1.104-.499 1.104-1.106v-8.038c0-.607-.497-1.106-1.104-1.106z" /></svg>
+            {{ artigo.likes }}
+        </span>
     </article>
     {% endfor %}
 </section>

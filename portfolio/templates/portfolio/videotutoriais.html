@@ -1,38 +1,36 @@
 {% extends "portfolio/base.html" %}
 {% block content %}
-<h2>Videotutoriais</h2>
+<h2>🎬 Videotutoriais</h2>
+<p class="page-subtitle">Vídeos demonstrativos da aplicação desenvolvida no âmbito de Programação Web.</p>
 
-<section>
-    <article>
-        <header>
-            <h3>1. Desenvolvimento de aplicação Django</h3>
-        </header>
+<section class="video-grid">
+    <<article class="video-card" id="videotutorial-1">
+        <span class="video-badge">1</span>
+        <h3>💻 Desenvolvimento de aplicação Django</h3>
         <p>Criação e funcionamento da página com formulário para criar um novo Projeto: models.py, forms.py, urls.py, views.py e template.</p>
-        <iframe width="100%" height="400"
-            src="https://www.youtube.com/embed/6m42UNrxhtg"
-            title="Videotutorial 1"
-            frameborder="0"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-        </iframe>
+        <div class="video-frame">
+            <iframe width="100%" height="400" src="https://www.youtube.com/embed/6m42UNrxhtg" title="Videotutorial 1" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
     </article>
 
-    <article>
-        <header>
-            <h3>2. Arquitetura do sistema web e pipeline CI/CD</h3>
-        </header>
+    <article class="video-card">
+        <span class="video-badge">2</span>
+        <h3>🏗️ Arquitetura do sistema web e pipeline CI/CD</h3>
         <p>Explicação do ambiente de desenvolvimento e produção, ambiente virtual, variáveis de ambiente, .gitignore, base de dados na Neon e storage no Cloudinary.</p>
-        <!-- TODO: só gravar depois do deploy estar concluído -->
-        <iframe width="100%" height="400" src="" title="Videotutorial 2" frameborder="0" allowfullscreen></iframe>
+        <div class="video-frame">
+            <!-- TODO: substitui o src pelo link de embed do teu vídeo 2 -->
+            <iframe width="100%" height="400" src="" title="Videotutorial 2" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
     </article>
 
-    <article>
-        <header>
-            <h3>3. Developer em ação</h3>
-        </header>
+    <article class="video-card">
+        <span class="video-badge">3</span>
+        <h3>🧑‍💻 Developer em ação</h3>
         <p>Passos completos para alterar o projeto a partir de uma máquina nova: criar Codespace, ambiente virtual, requirements.txt, .env, alteração, commit/push, GitHub Actions e deploy em produção.</p>
-        <!-- TODO: só gravar depois do deploy estar concluído -->
-        <iframe width="100%" height="400" src="" title="Videotutorial 3" frameborder="0" allowfullscreen></iframe>
+        <div class="video-frame">
+            <!-- TODO: só gravar depois do deploy estar concluído -->
+            <iframe width="100%" height="400" src="" title="Videotutorial 3" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
     </article>
 </section>
 {% endblock %}

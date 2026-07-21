@@ -2,7 +2,7 @@
 {% block content %}
 <h2>Registo</h2>
 
-<form method="post">
+<form method="post" class="form-estreito">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Criar conta</button>
