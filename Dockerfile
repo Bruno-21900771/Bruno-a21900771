@@ -13,4 +13,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD python manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:3000 project.wsgi:application
+CMD python manage.py collectstatic --noinput -v 3 && gunicorn --bind 0.0.0.0:3000 project.wsgi:application
