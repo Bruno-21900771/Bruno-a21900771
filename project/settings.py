@@ -20,6 +20,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': env('CLOUDINARY_API_KEY'),
+    'API_SECRET': env('CLOUDINARY_API_SECRET'),
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -27,7 +32,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # SECURITY WARNING: keep the secret key used in production secret!
 # Default só serve para o "docker build" (collectstatic) não rebentar
 # por falta da env var. Em produção o valor real vem sempre do secret.
-SECRET_KEY = env("SECRET_KEY", default="django-insecure-troca-isto-em-producao")
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
@@ -105,7 +110,7 @@ WSGI_APPLICATION = "project.wsgi.application"
 # collectstatic corre e ainda não há env vars). Em produção o
 # docker run injeta sempre o DATABASE_URL real do Neon.
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="sqlite:////tmp/db.sqlite3")
+    "default": env.db("DATABASE_URL")
 }
 
 
@@ -145,6 +150,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 
 STORAGES = {
