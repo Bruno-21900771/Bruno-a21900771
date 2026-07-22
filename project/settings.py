@@ -25,7 +25,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+# Default só serve para o "docker build" (collectstatic) não rebentar
+# por falta da env var. Em produção o valor real vem sempre do secret.
+SECRET_KEY = env("SECRET_KEY", default="django-insecure-troca-isto-em-producao")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
@@ -59,7 +61,7 @@ INSTALLED_APPS = [
     "festivais",
     "portfolio",
     "escola_online",
-    "markdownify.apps.MarkdownifyConfig",
+    # "markdownify.apps.MarkdownifyConfig",  <- removido: pacote já não está no requirements.txt e nunca era usado
     "accounts",
     "artigos",
 ]
@@ -99,8 +101,11 @@ WSGI_APPLICATION = "project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# Default sqlite só é usado durante o "docker build" (quando o
+# collectstatic corre e ainda não há env vars). Em produção o
+# docker run injeta sempre o DATABASE_URL real do Neon.
 DATABASES = {
-    "default": env.db("DATABASE_URL")
+    "default": env.db("DATABASE_URL", default="sqlite:////tmp/db.sqlite3")
 }
 
 
@@ -142,29 +147,17 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
-MARKDOWNIFY = {
-    "default": {
-        "WHITELIST_TAGS": [
-            'a', 'abbr', 'acronym',
-            'strong', 'b',
-            'blockquote', 'em', 'i',
-            'ul', 'li', 'ol',
-            'p',
-            'h1', 'h2', 'h3', 'h4',
-        ],
-    },
-}
-
 STORAGES = {
+    # Media (uploads dos users) continua tudo no Cloudinary
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
+    # Staticfiles agora usa o storage do whitenoise (com manifest +
+    # compressão), a combinação certa para ir com o WhiteNoiseMiddleware
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DEFAULT_FROM_EMAIL = "noreply@portfolio.com"

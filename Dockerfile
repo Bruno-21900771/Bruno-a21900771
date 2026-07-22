@@ -11,6 +11,8 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+RUN python manage.py collectstatic --noinput
+
 EXPOSE 3000
 
-CMD python manage.py collectstatic --noinput -v 3 && gunicorn --bind 0.0.0.0:3000 project.wsgi:application
+CMD ["gunicorn", "--bind", "0.0.0.0:3000", "project.wsgi:application"]
