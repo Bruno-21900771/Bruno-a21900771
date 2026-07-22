@@ -55,6 +55,7 @@ jobs:
 
             echo "Checking required secrets..."
             MISSING=0
+            [ -z "${{ secrets.SECRET_KEY }}" ]             && echo "ERROR: secret SECRET_KEY is not set"          && MISSING=1
             [ -z "${{ secrets.DATABASE_URL }}" ]          && echo "ERROR: secret DATABASE_URL is not set"          && MISSING=1
             [ -z "${{ secrets.CLOUDINARY_CLOUD_NAME }}" ] && echo "ERROR: secret CLOUDINARY_CLOUD_NAME is not set" && MISSING=1
             [ -z "${{ secrets.CLOUDINARY_API_KEY }}" ]    && echo "ERROR: secret CLOUDINARY_API_KEY is not set"    && MISSING=1
@@ -63,6 +64,8 @@ jobs:
 
             echo "Running new container for ${{ env.STUDENT_ID }}"
             cat > .env.deploy <<'EOF'
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            DEBUG=${{ secrets.DEBUG }}
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}
             CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}
